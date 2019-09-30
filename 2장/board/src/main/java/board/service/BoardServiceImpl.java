@@ -20,4 +20,18 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.selectBoardList();
 	}
 
+	@Override
+	public void insertBoard(BoardDto board) throws Exception {
+		// TODO Auto-generated method stub
+		boardMapper.insertBoard(board);
+	}
+
+	@Override
+	public BoardDto selectBoardDetail(int boardIdx) throws Exception{
+		// TODO Auto-generated method stub
+		boardMapper.updateHitCount(boardIdx);
+		BoardDto board=boardMapper.selectBoardDetail(boardIdx);
+		return board;
+	}
+
 }

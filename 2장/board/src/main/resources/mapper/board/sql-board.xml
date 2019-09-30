@@ -19,4 +19,35 @@
 		]]>
 	</select>
 	
+	<insert id="insertBoard" parameterType="board.dto.BoardDto">
+		<![CDATA[
+			insert into t_board
+			(title,contents,created_datetime,creator_id)
+			values
+			(#{title},#{contents},now(),'admin')
+		]]>
+	</insert>
+	
+	<update id="updateHitCount" parameterType="int">
+		<![CDATA[
+			update
+				t_board
+			set 
+				hit_cnt=hit_cnt+1
+			where
+				board_idx=#{boardIdx}
+		]]>
+	</update>
+	
+	<select id="selectBoardDetail" parameterType="int" resultType="board.dto.BoardDto">
+		<![CDATA[
+			select
+				board_idx,title,contents,hit_cnt,date_format(created_datetime,'%Y.%m.%d %H:%i:%s') as created_datetime,creator_id
+			from
+				t_board
+			where
+				board_idx=#{boardIdx} and deleted_yn='n'
+		]]>		
+	</select>
+	
 </mapper>
