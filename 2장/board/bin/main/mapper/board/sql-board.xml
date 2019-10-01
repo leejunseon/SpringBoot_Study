@@ -50,4 +50,28 @@
 		]]>		
 	</select>
 	
+	<update id="updateBoard" parameterType="board.dto.BoardDto">
+		<![CDATA[
+			update t_board
+			set
+				title=#{title},
+				contents=#{contents},
+				updated_datetime=now(),
+				updater_id='admin'
+			where
+				board_idx=#{boardIdx}
+		]]>		
+	</update>
+	
+	<update id="deleteBoard" parameterType="int">
+		<![CDATA[
+			update t_board
+			set
+				deleted_yn='y',
+				updated_datetime=now(),
+				updater_id='admin'
+			where
+				board_idx=#{boardIdx}
+		]]>		
+	</update>
 </mapper>
