@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import board.board.mapper.BoardMapper;
 import lombok.Setter;
 
 @RunWith(SpringRunner.class)
@@ -18,8 +19,16 @@ public class BoardApplicationTests {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	@Setter(onMethod_= {@Autowired})
+	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private BoardMapper mapper;
+	
+	@Test
+	public void testGetList() throws Exception {
+		mapper.selectBoardList().forEach(board->System.out.println(board.toString()));
+	}
 	
 	@Test
 	public void contextLoads() {

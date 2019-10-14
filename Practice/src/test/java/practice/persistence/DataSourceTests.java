@@ -6,15 +6,14 @@ import java.sql.Connection;
 
 import javax.sql.DataSource;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
@@ -22,11 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DataSourceTests {
 	
-	@Setter(onMethod_= {@Autowired})
+	@Autowired
 	private DataSource dataSource;
 	
-	@Setter(onMethod_={@Autowired})
-	private SqlSessionFactory sqlSessionFactory;
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 		
 	@Test
 	public void testConnection() {
@@ -39,12 +38,6 @@ public class DataSourceTests {
 	
 	@Test
 	public void testMyBatis() {
-		try(SqlSession session=sqlSessionFactory.openSession();
-			Connection con=session.getConnection();){
-			log.info(session.toString());
-			log.info(con.toString());
-		}catch(Exception e) {
-			fail(e.getMessage());
-		}
+		log.info(sqlSession.toString());
 	}
 }
