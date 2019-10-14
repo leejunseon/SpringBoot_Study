@@ -19,13 +19,13 @@ public class BoardMapperTests {
 	@Autowired
 	private BoardMapper mapper;
 	
-	@Test
+	/*@Test
 	public void testGetList(){
 		List<BoardVO> list=mapper.getList();
 		for(BoardVO vo:list) {
 			log.info(vo.toString());
 		}
-	}
+	}*/
 	
 	/*@Test
 	public void testInsert(){
