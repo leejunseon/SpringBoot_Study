@@ -10,10 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import board.board.mapper.BoardMapper;
-import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class BoardApplicationTests {
 
 	@Autowired
@@ -27,7 +28,7 @@ public class BoardApplicationTests {
 	
 	@Test
 	public void testGetList() throws Exception {
-		mapper.selectBoardList().forEach(board->System.out.println(board.toString()));
+		mapper.selectBoardList().forEach(board->log.info(board.toString()));
 	}
 	
 	@Test
