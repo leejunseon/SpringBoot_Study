@@ -41,13 +41,13 @@ public class BoardMapperTests {
 	
 	/*@Test
 	public void testRead() {
-		BoardVO board=mapper.read(3L);
+		BoardVO board=mapper.read(2L);
 		log.info(board.toString());
 	}*/
 	
 	/*@Test
 	public void testDelete() {
-		log.info("delete count: "+mapper.delete(3L));
+		log.info("delete count: "+mapper.delete(4L));
 	}*/
 	
 	/*@Test
