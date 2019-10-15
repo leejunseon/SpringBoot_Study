@@ -5,56 +5,56 @@
 
 	<select id="getList" resultType="practice.domain.BoardVO">
 		<![CDATA[
-			select 
-				bno,title,content,writer,regdate,updatedate
+			SELECT
+				BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE 
 			from(
-				select /*+ index_desc(tbl_board pk_board) */
-					rownum rn,bno,title,content,writer,regdate,updatedate
-				from
+				SELECT /*+ INDEX_DESC(TBL_BOARD PK_BOARD) */
+					ROWNUM RN,BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE
+				FROM
 				]]>
 				<choose>
 					<when test="orderNum==null">
-						tbl_board
+						TBL_BOARD
 					</when>
 					<when test="orderNum!=null">
 					(
-						select /*+ index_desc(tbl_board pk_board) */
-                			rownum rn,bno,title,content,writer,regdate,updatedate
-            			from 
-                			tbl_board
+						SELECT /*+ INDEX_DESC(TBL_BOARD PK_BOARD) */
+                			ROWNUM RN,BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE
+            			FROM
+                			TBL_BOARD
                 			<if test="search!=''">
-								 where
-            						(bno like '%'||#{search}||'%' or 
-            						 title like '%'||#{search}||'%' or 
-            						 bno like '%'||#{search}||'%' or 
-            						 content like '%'||#{search}||'%')
+								 WHERE
+            						(BNO LIKE '%'||#{search}||'%' OR 
+            						 TITLE LIKE '%'||#{search}||'%' OR 
+            						 WRITER LIKE '%'||#{search}||'%' OR 
+            						 CONTENT LIKE '%'||#{search}||'%')
 							</if>
 	          				<choose>
 								<when test="orderNum!=null">
 									<choose>
 										<when test="orderNum=='0'.toString()">
-											order by bno
+											ORDER BY BNO
 										</when>
 										<when test="orderNum=='1'.toString()">
-											order by title
+											ORDER BY TITLE
 										</when>
 										<when test="orderNum=='2'.toString()">
-											order by writer
+											ORDER BY WRITER
 										</when>
 										<when test="orderNum=='3'.toString()">
-											order by regdate
+											ORDER BY REGDATE
 										</when>
 										<when test="orderNum=='4'.toString()">
-											order by updatedate
+											ORDER BY UPDATEDATE
 										</when>
 									</choose>
 									
 									<choose>
 										<when test="orderDir=='asc'">
-											asc
+											ASC
 										</when>
 										<when test="orderDir='desc'">
-											desc
+											DESC
 										</when>
 									</choose>
 								</when>
@@ -63,9 +63,9 @@
 					</when>
 				</choose>
 				<![CDATA[
-				where rownum<= #{start} + #{length}
+				WHERE ROWNUM<= #{start} + #{length}
 			)
-			where rn> #{start}
+			WHERE RN> #{start}
 		]]>
 	</select>
 	
