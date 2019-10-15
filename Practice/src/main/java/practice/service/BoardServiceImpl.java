@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import practice.domain.BoardPagingDto;
 import practice.domain.BoardVO;
 import practice.mapper.BoardMapper;
 
@@ -40,9 +40,15 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(BoardPagingDto paging) {
 		// TODO Auto-generated method stub
-		return mapper.getList();
+		return mapper.getList(paging);
+	}
+
+	@Override
+	public int getTotal() {
+		// TODO Auto-generated method stub
+		return mapper.getTotal();
 	}
 
 }

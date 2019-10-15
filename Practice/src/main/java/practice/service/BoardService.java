@@ -2,6 +2,7 @@ package practice.service;
 
 import java.util.List;
 
+import practice.domain.BoardPagingDto;
 import practice.domain.BoardVO;
 
 public interface BoardService {
@@ -14,5 +15,7 @@ public interface BoardService {
 	
 	public boolean remove(Long bno);
 	
-	public List<BoardVO> getList();
+	public List<BoardVO> getList(BoardPagingDto paging);
+
+	public int getTotal();
 }
