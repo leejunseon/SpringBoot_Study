@@ -61,8 +61,13 @@ public class BoardController {
 
 	
 	@GetMapping("/list")
-	public void list(Model model) throws Exception{
+	public void list() throws Exception{
 
+	}
+	
+	@GetMapping("/register")
+	public void register()throws Exception{
+		
 	}
 	
 	@PostMapping("/register")
