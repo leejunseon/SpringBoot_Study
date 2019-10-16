@@ -10,15 +10,15 @@ import practice.domain.BoardVO;
 @Mapper
 public interface BoardMapper {
 
-	public List<BoardVO> getList(BoardPagingDto paging);
+	public List<BoardVO> getList(BoardPagingDto paging) throws Exception;
 	
-	public void insert(BoardVO board);
+	public void insert(BoardVO board) throws Exception;
 	
-	public BoardVO read(Long bno);
+	public BoardVO read(Long bno) throws Exception;
 	
-	public int delete(Long bno);
+	public int delete(Long bno) throws Exception;
 	
-	public int update(BoardVO board);
+	public int update(BoardVO board) throws Exception;
 
-	public int getTotal();
+	public int getTotal() throws Exception;
 }

@@ -28,7 +28,7 @@ public class BoardController {
 	
 	@PostMapping(value="/tableSetting",produces=MediaType.APPLICATION_JSON_UTF8_VALUE) 
 	@ResponseBody 
-	public DataTableDto tableSetting(DataTableDto dto, @RequestBody MultiValueMap<String, String> formData){ 
+	public DataTableDto tableSetting(DataTableDto dto, @RequestBody MultiValueMap<String, String> formData) throws Exception{ 
 	    int draw = Integer.parseInt(formData.get("draw").get(0)); 
 	    String start = formData.get("start").get(0); 
 	    String length = formData.get("length").get(0); 
@@ -61,24 +61,24 @@ public class BoardController {
 
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(Model model) throws Exception{
 
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board,RedirectAttributes rttr) {
+	public String register(BoardVO board,RedirectAttributes rttr) throws Exception{
 		service.register(board);
 		rttr.addFlashAttribute("result",board.getBno());
 		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/get")
-	public void get(Long bno,Model model) {
+	public void get(Long bno,Model model) throws Exception{
 		model.addAttribute("board",service.get(bno));
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board,RedirectAttributes rttr) {
+	public String modify(BoardVO board,RedirectAttributes rttr) throws Exception{
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result","success");
 		}
@@ -86,7 +86,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long bno,RedirectAttributes rttr) {
+	public String remove(Long bno,RedirectAttributes rttr) throws Exception{
 		if(service.remove(bno)) {
 			rttr.addFlashAttribute("result","success");
 		}
