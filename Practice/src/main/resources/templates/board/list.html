@@ -79,9 +79,11 @@
 		
 		checkModal(result);
 		
+		history.replaceState({},null,null);
+		
 		//등록 모달 창
 		function checkModal(result){
-			if(result===null)
+			if(result===null||history.state)
 				return
 			if(parseInt(result)>0){
 				$(".modal-body").html("게시글 "+parseInt(result)+" 번이 등록되었습니다.");

@@ -31,9 +31,32 @@
        		<button data-oper='list' class="btn btn-info btn-icon-split">
        			<span class="text">List</span>
        		</button>
+       		<form id='operForm' action="/board/modify" method="get">
+       			<input type='hidden' id='bno' name='bno' th:value="${board.bno}">
+       		</form>
         </div>
 	</div>
 </div>
+<script type="text/javascript" th:inline="javascript">
+$(document).ready(function(){
+	
+	var operForm=$("#operForm");
+	
+	/*<![CDATA[*/ 
+		var bnoValue = /*[[ ${board.bno} ]]*/; 
+	/*]]>*/
+		
+	$("button[data-oper='modify']").on("click",function(e){
+		operForm.attr("action","/board/modify").submit();
+	});
+	
+	$("button[data-oper='list']").on("click",function(e){
+		operForm.find("#bno").remove();
+		operForm.attr("action","/board/list");
+		operForm.submit();
+	});	
+});
+</script>
 
 <th:block th:replace="includes/footer"></th:block>
 </html>
