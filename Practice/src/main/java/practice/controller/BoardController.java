@@ -77,7 +77,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/get")
+	@GetMapping({"/get","/modify"})
 	public void get(Long bno,Model model) throws Exception{
 		model.addAttribute("board",service.get(bno));
 	}
