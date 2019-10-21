@@ -19,8 +19,13 @@ public class BoardMapperTests {
 	@Autowired
 	private BoardMapper mapper;
 	
+	@Test
+	public void testMapper() {
+		log.info(mapper.toString());
+	}
+	
 	/*@Test
-	public void testGetList(){
+	public void testGetList() throws Exception{
 		List<BoardVO> list=mapper.getList();
 		for(BoardVO vo:list) {
 			log.info(vo.toString());
@@ -28,7 +33,7 @@ public class BoardMapperTests {
 	}*/
 	
 	/*@Test
-	public void testInsert(){
+	public void testInsert() throws Exception{
 		BoardVO board=new BoardVO();
 		board.setTitle("새로 작성하는 글");
 		board.setContent("새로 작성하는 내용");
@@ -40,18 +45,18 @@ public class BoardMapperTests {
 	}*/
 	
 	/*@Test
-	public void testRead() {
+	public void testRead() throws Exception{
 		BoardVO board=mapper.read(2L);
 		log.info(board.toString());
 	}*/
 	
 	/*@Test
-	public void testDelete() {
+	public void testDelete() throws Exception{
 		log.info("delete count: "+mapper.delete(4L));
 	}*/
 	
-	/*@Test
-	public void testUpdate() {
+	@Test
+	public void testUpdate() throws Exception {
 		BoardVO board=new BoardVO();
 		
 		board.setBno(1L);
@@ -61,5 +66,5 @@ public class BoardMapperTests {
 		
 		int count=mapper.update(board);
 		log.info("update count: "+count);
-	}*/
+	}
 }
