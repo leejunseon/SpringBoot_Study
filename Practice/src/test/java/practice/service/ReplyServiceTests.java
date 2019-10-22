@@ -1,4 +1,4 @@
-package practice.mapper;
+package practice.service;
 
 import java.util.List;
 
@@ -15,56 +15,56 @@ import practice.domain.ReplyVO;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class ReplyMapperTests {
-	
+public class ReplyServiceTests {
+
 	@Autowired
-	private ReplyMapper mapper;
+	private ReplyService service;
 	
 	/*@Test
-	public void testMapper() {
-		log.info(mapper.toString());
+	public void testExist() {
+		log.info(service.toString());
 	}*/
 	
 	/*@Test
-	public void testCreate() throws Exception{
+	public void testRegister() throws Exception{
 		for(Long i=20L;i<=22L;i++) {
 			ReplyVO vo=new ReplyVO();
 			vo.setBno(i);
-			vo.setReply("댓글 테스트~~"+i);
+			vo.setReply("서비스테스트~~"+i);
 			vo.setReplyer("replyer"+i);
-			mapper.insert(vo);
+			service.register(vo);
 		}
 	}*/
 	
 	/*@Test
-	public void testRead() throws Exception {
-		Long targetRno=1L;
-		ReplyVO vo=mapper.read(targetRno);
+	public void testGet() throws Exception{
+		Long rno=10L;
+		ReplyVO vo=service.get(rno);
 		log.info(vo.toString());
 	}*/
 	
 	/*@Test
-	public void testDelete() throws Exception {
-		Long targetRno=1L;
-		mapper.delete(targetRno);
+	public void testModify() throws Exception{
+		ReplyVO vo=service.get(10L);
+		vo.setReply("수정테스트!");
+		service.modify(vo);
 	}*/
 	
 	/*@Test
-	public void testUpdate() throws Exception {
-		Long targetRno=2L;
-		ReplyVO vo=mapper.read(targetRno);
-		vo.setReply("Update Reply");
-		int count=mapper.update(vo);
-		log.info("Update count: "+count);
+	public void testRemove() throws Exception{
+		Long rno=16L;
+		int count=service.remove(rno);
+		log.info("remove count: "+count);
 	}*/
 	
 	/*@Test
 	public void testGetReplies() throws Exception{
 		Long bno=20L;
 		ReplyPagingDto paging=new ReplyPagingDto(1,10);
-		List<ReplyVO> list=mapper.getReplies(bno, paging);
+		List<ReplyVO> list=service.getReplies(bno, paging);
 		for(ReplyVO vo:list) {
 			log.info(vo.toString());
 		}
 	}*/
+
 }

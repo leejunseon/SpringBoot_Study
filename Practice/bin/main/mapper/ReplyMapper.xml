@@ -23,4 +23,22 @@
 			UPDATEDATE=SYSDATE
 		WHERE RNO=#{rno}
 	</update>
+	
+	<select id="getReplies" resultType="practice.domain.ReplyVO">
+	<![CDATA[
+		SELECT
+			RNO,BNO,REPLY,REPLYER,REPLYDATE,UPDATEDATE 
+		FROM(
+		    SELECT /*+ INDEX(TBL_REPLY IDX_REPLY) */
+		    	ROWNUM RN,RNO,BNO,REPLY,REPLYER,REPLYDATE,UPDATEDATE
+		    FROM
+		        TBL_REPLY
+		    WHERE BNO=#{bno}
+		    AND RNO>0
+		    AND ROWNUM<=#{paging.pageNum}*#{paging.amount}
+		    )
+		WHERE
+			RN>(#{paging.pageNum}-1)*#{paging.amount}
+	]]>
+	</select>
 </mapper>
