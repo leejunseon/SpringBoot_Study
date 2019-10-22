@@ -25,7 +25,7 @@ public class ReplyController {
 	private ReplyService service;
 	
 	@PostMapping(value="/new",consumes="application/json",produces= {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> create(@RequestBody ReplyVO vo) throws Exception{
+	public ResponseEntity<String> register(@RequestBody ReplyVO vo) throws Exception{
 		int insertCount=service.register(vo);
 		return insertCount==1?new ResponseEntity<>("success",HttpStatus.OK):new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

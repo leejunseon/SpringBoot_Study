@@ -3,8 +3,6 @@ package practice.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import practice.domain.ReplyVO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,12 +43,12 @@ public class ReplyControllerTests {
 				);
 	}*/
 	
-	@Test
+	/*@Test
 	public void testGetReplies() throws Exception{
 		log.info(mockMvc.perform(get("/replies/pages/20/1"))
 				.andReturn()
 				.getResponse()
 				.getContentAsString()
 				);
-	}
+	}*/
 }
