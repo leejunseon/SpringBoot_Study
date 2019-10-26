@@ -22,7 +22,28 @@ var replyService=(function(){
 		});
 	}
 	
+	
+	function getReplies(param,callback,error){
+		console.log("replyService.getReplies()");
+		
+		$.ajax({
+			type:'get',
+			url:'/replies/pages/'+param.bno+'/'+param.page,
+			dataType:'json',
+			success:function(result){
+				if(callback)
+					callback(result);
+			},
+			error:function(xhr,status,er){
+				if(error){
+					error(er);
+				}
+			}
+		});
+	}
+	
 	return {
-		add:add
+		add:add,
+		getReplies:getReplies
 	};	
 })();

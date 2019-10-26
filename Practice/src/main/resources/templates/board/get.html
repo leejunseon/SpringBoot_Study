@@ -65,11 +65,27 @@ $(document).ready(function(){
 		var bnoValue = /*[[ ${board.bno} ]]*/; 
 	/*]]>*/
 	
+	/* 
 	replyService.add(
 		{reply:"js test",replyer:"tester",bno:bnoValue}
 		,
 		function(result){
 			alert("result:"+result);
+		}
+		,
+		function(error){
+			alert("error:"+error);
+		}
+	);
+	 */
+	 
+	replyService.getReplies(
+		{bno:bnoValue,page:1}
+		,
+		function(list){
+			for(var i=0,len=list.length||0;i<len;i++){
+				console.log(list[i]);
+			}
 		}
 		,
 		function(error){
