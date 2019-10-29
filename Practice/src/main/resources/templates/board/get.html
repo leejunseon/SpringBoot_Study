@@ -36,6 +36,26 @@
        		</form>
         </div>
 	</div>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+        	<i class="fa fa-comments fa-fw"></i>Reply
+        </div>
+         <div class="card-body">
+			<div class="form-group">
+				<textarea class="form-control" id='reply' rows="3" placeholder="Leave comments here"></textarea>
+			</div>
+			<button id='replyRegisterBtn' type="submit" class="btn btn-success btn-icon-split fa-pull-right">
+				<span class="text"><i class="fa fa-share"></i> Register</span>
+			</button>
+		</div>
+		<hr>
+        <div class="card-body">
+        	<ul class="chat" style="list-style-type:none; padding-left:15px;">
+        	</ul>
+        	<div class="panel-footer">
+        	</div>
+        </div>
+	</div>
 </div>
 <script type="text/javascript" th:inline="javascript">
 $(document).ready(function(){
@@ -45,6 +65,8 @@ $(document).ready(function(){
 	/*<![CDATA[*/ 
 		var bnoValue = /*[[ ${board.bno} ]]*/; 
 	/*]]>*/
+	
+	showList(1);
 		
 	$("button[data-oper='modify']").on("click",function(e){
 		operForm.attr("action","/board/modify").submit();
@@ -59,39 +81,63 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript" src="/js/reply.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
 <script type="text/javascript" th:inline="javascript">
 
 	/*<![CDATA[*/ 
 		var bnoValue = /*[[ ${board.bno} ]]*/; 
 	/*]]>*/
+	  
+	var replyUL=$(".chat");
 	
-	/* 
-	replyService.add(
-		{reply:"js test",replyer:"tester",bno:bnoValue}
-		,
-		function(result){
-			alert("result:"+result);
-		}
-		,
-		function(error){
-			alert("error:"+error);
-		}
-	);
-	 */
-	 
+	function showList(page){
+	console.log("show replies "+page);
 	replyService.getReplies(
-		{bno:bnoValue,page:1}
+		{bno:bnoValue,page:page||1}
 		,
 		function(list){
-			for(var i=0,len=list.length||0;i<len;i++){
-				console.log(list[i]);
+			var list=list;
+			
+			console.log("replies:");
+			console.log(list);
+			
+			if(page==-1){
+				pageNum=Math.ceil(replyCnt/10.0);
+				showList(pageNum);
+				return;
 			}
+			
+			var str="";
+			if(list==null||list.length==0){
+				replyUL.html("");
+				return;
+			}
+			for(var i=0,len=list.length||0;i<len;i++){
+				var date=displayTime(list[i].replyDate);
+				str+="<li id='"+list[i].rno+"'>";
+				str+="<div><div class='header'>";
+				str+="<strong class='primary-font'>"+list[i].replyer+"</strong>";
+				str+="<a href='javascript:void(0)' onclick='editReply("+list[i].rno+",\""+list[i].replyer+"\",\""+list[i].reply+"\")' style='padding-left:15px'>수정</a>";
+				str+="<a href='javascript:void(0)' onclick='removeReply("+list[i].rno+")' style='padding-left:15px;'>삭제</a>";
+				str+="<small class='fa-pull-right text-muted'>"+date+"</small></div>";
+				str+="<p>"+list[i].reply+"</p><hr></div></li>";
+			}
+			replyUL.html(str);
+		});
+	}
+	
+	function displayTime(time){
+		var today=new Date();
+		var gap=today.getTime()-time;
+		var dateObj=new Date(time);
+				
+		if(gap<(1000*60*60*24)){
+			return moment(time).format('h:mm:ss a');
+		}else{
+			return moment(time).format('YYYY-MM-DD');
 		}
-		,
-		function(error){
-			alert("error:"+error);
-		}
-	);
+	}
+	  
 </script>
 
 <th:block th:replace="includes/footer"></th:block>
