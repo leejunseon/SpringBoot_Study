@@ -41,4 +41,12 @@
 			RN>(#{paging.pageNum}-1)*#{paging.amount}
 	]]>
 	</select>
+	
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+			SELECT COUNT(RNO)
+			FROM TBL_REPLY
+			WHERE BNO=#{BNO}
+		]]>
+	</select>
 </mapper>

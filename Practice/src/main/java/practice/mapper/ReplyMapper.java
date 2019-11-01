@@ -20,4 +20,6 @@ public interface ReplyMapper {
 	public int update(ReplyVO reply) throws Exception;
 	
 	public List<ReplyVO> getReplies(@Param("bno")Long bno, @Param("paging")ReplyPagingDto paging) throws Exception;
+	
+	public int getCountByBno(Long bno) throws Exception;
 }

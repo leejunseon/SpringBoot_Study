@@ -55,7 +55,7 @@ public class BoardMapperTests {
 		log.info("delete count: "+mapper.delete(4L));
 	}*/
 	
-	@Test
+	/*@Test
 	public void testUpdate() throws Exception {
 		BoardVO board=new BoardVO();
 		
@@ -66,5 +66,5 @@ public class BoardMapperTests {
 		
 		int count=mapper.update(board);
 		log.info("update count: "+count);
-	}
+	}*/
 }

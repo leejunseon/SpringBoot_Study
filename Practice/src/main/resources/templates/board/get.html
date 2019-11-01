@@ -77,11 +77,30 @@ $(document).ready(function(){
 		operForm.attr("action","/board/list");
 		operForm.submit();
 	});	
+	
+	var replyer="replyer";
+	$("#replyRegisterBtn").on("click",function(e){
+		var reply={
+				reply:$("#reply").val(),
+				replyer:replyer,
+				bno:bnoValue,
+				};
+		
+		replyService.add(
+			reply
+			,
+			function(result){
+				alert(result);
+				$("#reply").val("");
+				showList(-1);
+			}
+		);
+	});
 });
 </script>
 
-<script type="text/javascript" src="/js/reply.js"></script>
 <script src="https://momentjs.com/downloads/moment.js"></script>
+<script type="text/javascript" src="/js/reply.js"></script>
 <script type="text/javascript" th:inline="javascript">
 
 	/*<![CDATA[*/ 
@@ -95,9 +114,11 @@ $(document).ready(function(){
 	replyService.getReplies(
 		{bno:bnoValue,page:page||1}
 		,
-		function(list){
+		function(replyCnt,list){
+			var replyCnt=replyCnt;
 			var list=list;
 			
+			console.log("replyCnt: "+replyCnt);
 			console.log("replies:");
 			console.log(list);
 			
@@ -106,7 +127,7 @@ $(document).ready(function(){
 				showList(pageNum);
 				return;
 			}
-			
+					
 			var str="";
 			if(list==null||list.length==0){
 				replyUL.html("");
@@ -127,15 +148,56 @@ $(document).ready(function(){
 	}
 	
 	function displayTime(time){
-		var today=new Date();
-		var gap=today.getTime()-time;
+		var today=moment(new Date());
+		var gap=moment.duration(today.diff(time)).asDays()
 		var dateObj=new Date(time);
 				
-		if(gap<(1000*60*60*24)){
+		if(gap<1){
 			return moment(time).format('h:mm:ss a');
 		}else{
 			return moment(time).format('YYYY-MM-DD');
 		}
+	}
+	
+	function editReply(rno,writer,content){
+		var str="";
+		var reply=$("#"+rno);
+		
+		str+="<li id='"+rno+"'>";
+		str+="<div class='header'>";
+		str+="<strong class='primary-font'>"+writer+"</strong>";
+		str+="<a href='javascript:void(0)' onclick='updateReply("+rno+")' style='padding-left:15px;'>저장</a>";
+		str+="<a href='javascript:void(0)' onclick='showList(1)' style='padding-left:15px;'>취소</a>";
+		str+="<div class='form-group'><textarea id='updated' class='form-control'>"+content+"</textarea></div><hr></div></li>";
+		
+		reply.html(str);
+	}
+	function removeReply(rno){
+		replyService.remove(
+			rno
+			,
+			function(result){
+				alert(result);
+				$("#reply").val("");
+				showList(1);
+			}
+		);
+	}
+	function updateReply(rno){
+		var reply={
+			rno:rno,
+			reply:$("#updated").val(),
+			bno:bnoValue,
+		};
+		replyService.update(
+			reply
+			,
+			function(result){
+				alert(result);
+				$("#reply").val("");
+				showList(1);
+			}
+		);
 	}
 	  
 </script>

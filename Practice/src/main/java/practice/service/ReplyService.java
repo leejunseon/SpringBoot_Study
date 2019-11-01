@@ -1,7 +1,6 @@
 package practice.service;
 
-import java.util.List;
-
+import practice.domain.Replies;
 import practice.domain.ReplyPagingDto;
 import practice.domain.ReplyVO;
 
@@ -15,6 +14,6 @@ public interface ReplyService {
 	
 	public int remove(Long rno) throws Exception;
 	
-	public List<ReplyVO> getReplies(Long bno, ReplyPagingDto paging) throws Exception;
+	public Replies getReplies(Long bno, ReplyPagingDto paging) throws Exception;
 
 }

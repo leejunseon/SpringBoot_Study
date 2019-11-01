@@ -1,10 +1,9 @@
 package practice.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import practice.domain.Replies;
 import practice.domain.ReplyPagingDto;
 import practice.domain.ReplyVO;
 import practice.mapper.ReplyMapper;
@@ -40,9 +39,9 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public List<ReplyVO> getReplies(Long bno, ReplyPagingDto paging) throws Exception {
+	public Replies getReplies(Long bno, ReplyPagingDto paging) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.getReplies(bno, paging);
+		return new Replies(mapper.getCountByBno(bno),mapper.getReplies(bno,paging));
 	}
 
 }
