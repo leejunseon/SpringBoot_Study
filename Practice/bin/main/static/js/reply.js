@@ -18,7 +18,7 @@ var replyService=(function(){
 			},
 			error:function(xhr,status,er){
 				if(error){
-					error(er);
+					error(status);
 				}
 			}
 		});
@@ -39,7 +39,7 @@ var replyService=(function(){
 			},
 			error:function(xhr,status,er){
 				if(error){
-					error(er);
+					error(status);
 				}
 			}
 		});
@@ -59,7 +59,7 @@ var replyService=(function(){
 			},
 			error:function(xhr,status,er){
 				if(error){
-					error(er);
+					error(status);
 				}
 			}
 		});
@@ -81,7 +81,7 @@ var replyService=(function(){
 			},
 			error:function(xhr,status,er){
 				if(error){
-					error(er);
+					error(status);
 				}
 			}
 		});
