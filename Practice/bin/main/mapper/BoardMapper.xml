@@ -6,10 +6,10 @@
 	<select id="getList" resultType="practice.domain.BoardVO">
 		<![CDATA[
 			SELECT
-				BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE 
+				BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE,REPLYCNT
 			from(
 				SELECT /*+ INDEX_DESC(TBL_BOARD PK_BOARD) */
-					ROWNUM RN,BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE
+					ROWNUM RN,BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE,REPLYCNT
 				FROM
 				]]>
 				<choose>
@@ -19,7 +19,7 @@
 					<when test="orderNum!=null">
 					(
 						SELECT /*+ INDEX_DESC(TBL_BOARD PK_BOARD) */
-                			ROWNUM RN,BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE
+                			ROWNUM RN,BNO,TITLE,CONTENT,WRITER,REGDATE,UPDATEDATE,REPLYCNT
             			FROM
                 			TBL_BOARD
                 			<if test="search!=''">
@@ -102,5 +102,11 @@
 		FROM TBL_BOARD
 		WHERE BNO>0
 	</select>
+	
+	<update id="updateReplyCnt">
+		update tbl_board
+		set replycnt=replycnt+#{amount}
+		where bno=#{bno}
+	</update>
 	
 </mapper>

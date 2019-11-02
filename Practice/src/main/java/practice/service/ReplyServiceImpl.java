@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import practice.domain.Replies;
 import practice.domain.ReplyPagingDto;
 import practice.domain.ReplyVO;
+import practice.mapper.BoardMapper;
 import practice.mapper.ReplyMapper;
 
 @Service
@@ -13,10 +14,12 @@ import practice.mapper.ReplyMapper;
 public class ReplyServiceImpl implements ReplyService{
 	
 	private ReplyMapper mapper;
+	private BoardMapper boardMapper;
 
 	@Override
 	public int register(ReplyVO vo) throws Exception {
 		// TODO Auto-generated method stub
+		boardMapper.updateReplyCnt(vo.getBno(), 1);
 		return mapper.insert(vo);
 	}
 
@@ -35,6 +38,8 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public int remove(Long rno) throws Exception {
 		// TODO Auto-generated method stub
+		ReplyVO vo=mapper.read(rno);
+		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		return mapper.delete(rno);
 	}
 

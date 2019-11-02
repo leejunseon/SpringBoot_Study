@@ -3,6 +3,7 @@ package practice.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import practice.domain.BoardPagingDto;
 import practice.domain.BoardVO;
@@ -21,4 +22,6 @@ public interface BoardMapper {
 	public int update(BoardVO board) throws Exception;
 
 	public int getTotal() throws Exception;
+	
+	public void updateReplyCnt(@Param("bno")Long bno,@Param("amount")int amount) throws Exception;
 }
