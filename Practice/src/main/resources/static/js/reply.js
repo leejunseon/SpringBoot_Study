@@ -11,6 +11,9 @@ var replyService=(function(){
 			url:'/replies/new',
 			data:JSON.stringify(reply),
 			contentType:"application/json; charset=utf-8",
+			beforeSend: function(xhr){   
+                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
+            },
 			success:function(result,status,xhr){
 				if(callback){
 					callback(result);
@@ -45,13 +48,18 @@ var replyService=(function(){
 		});
 	}
 	
-	function remove(rno,callback,error){
+	function remove(reply,callback,error){
 		console.log("replyService.remove");
-		console.log(rno);
+		console.log(reply);
 		
 		$.ajax({
 			type:'delete',
-			url:'/replies/'+rno,
+			url:'/replies/'+reply.rno,
+			data:JSON.stringify(reply),
+			contentType:"application/json; charset=utf-8",
+			beforeSend: function(xhr){   
+                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
+            },
 			success:function(deleteResult,status,xhr){
 				if(callback){
 					callback(deleteResult);
@@ -74,6 +82,9 @@ var replyService=(function(){
 			url:'/replies/'+reply.rno,
 			data:JSON.stringify(reply),
 			contentType:"application/json; charset=utf-8",
+			beforeSend: function(xhr){   
+                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
+            },
 			success:function(result,status,xhr){
 				if(callback){
 					callback(result);

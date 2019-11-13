@@ -3,6 +3,7 @@ package practice.controller;
 import java.util.List;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -66,11 +67,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public void register()throws Exception{
 		
 	}
 	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board,RedirectAttributes rttr) throws Exception{
 		service.register(board);
 		rttr.addFlashAttribute("result",board.getBno());
@@ -82,6 +85,7 @@ public class BoardController {
 		model.addAttribute("board",service.get(bno));
 	}
 	
+	@PreAuthorize("principal.username==#board.writer")
 	@PostMapping("/modify")
 	public String modify(BoardVO board,RedirectAttributes rttr) throws Exception{
 		if(service.modify(board)) {
@@ -90,8 +94,9 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	@PreAuthorize("principal.username==#writer")
 	@PostMapping("/remove")
-	public String remove(Long bno,RedirectAttributes rttr) throws Exception{
+	public String remove(Long bno,RedirectAttributes rttr,String writer) throws Exception{
 		if(service.remove(bno)) {
 			rttr.addFlashAttribute("result","success");
 		}

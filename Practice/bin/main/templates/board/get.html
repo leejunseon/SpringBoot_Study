@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 <th:block th:replace="includes/header"></th:block>
 
 <div class="container-fluid">
@@ -25,7 +30,7 @@
        			<label>Writer</label>
        			<input class="form-control" name='writer' th:value="${board.writer}" readonly="readonly">
        		</div>
-       		<button data-oper='modify' class="btn btn-primary btn-icon-split">
+       		<button data-oper='modify' class="btn btn-primary btn-icon-split" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username eq board.writer}">
        			<span class="text">Modify</span>
        		</button>
        		<button data-oper='list' class="btn btn-info btn-icon-split">
@@ -44,7 +49,7 @@
 			<div class="form-group">
 				<textarea class="form-control" id='reply' rows="3" placeholder="Leave comments here"></textarea>
 			</div>
-			<button id='replyRegisterBtn' type="submit" class="btn btn-success btn-icon-split fa-pull-right">
+			<button id='replyRegisterBtn' type="submit" class="btn btn-success btn-icon-split fa-pull-right" sec:authorize="isAuthenticated()">
 				<span class="text"><i class="fa fa-share"></i> Register</span>
 			</button>
 		</div>
@@ -78,12 +83,19 @@ $(document).ready(function(){
 		operForm.submit();
 	});	
 	
-	var replyer="replyer";
+	var replyer=null;
+	/*[# sec:authorize="isAuthenticated()"]*/
+	    replyer=/*[[ ${#authentication.principal.username} ]]*/;
+	/*[/]*/
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token = $("meta[name='_csrf']").attr("content");
 	$("#replyRegisterBtn").on("click",function(e){
 		var reply={
 				reply:$("#reply").val(),
 				replyer:replyer,
 				bno:bnoValue,
+				csrf_header:header,
+				csrf_token:token
 				};
 		
 		replyService.add(
@@ -123,6 +135,10 @@ $(document).ready(function(){
 	  
 	var replyUL=$(".chat");
 	
+	var replyer=null;
+	/*[# sec:authorize="isAuthenticated()"]*/
+	    replyer=/*[[ ${#authentication.principal.username} ]]*/;
+	/*[/]*/
 	function showList(page){
 	console.log("show replies "+page);
 	replyService.getReplies(
@@ -152,8 +168,10 @@ $(document).ready(function(){
 				str+="<li id='"+list[i].rno+"'>";
 				str+="<div><div class='header'>";
 				str+="<strong class='primary-font'>"+list[i].replyer+"</strong>";
-				str+="<a href='javascript:void(0)' onclick='editReply("+list[i].rno+",\""+list[i].replyer+"\",\""+list[i].reply+"\")' style='padding-left:15px'>수정</a>";
-				str+="<a href='javascript:void(0)' onclick='removeReply("+list[i].rno+")' style='padding-left:15px;'>삭제</a>";
+				if(list[i].replyer==replyer){
+					str+="<a href='javascript:void(0)' onclick='editReply("+list[i].rno+",\""+list[i].replyer+"\",\""+list[i].reply+"\")' style='padding-left:15px'>수정</a>";
+					str+="<a href='javascript:void(0)' onclick='removeReply("+list[i].rno+")' style='padding-left:15px;'>삭제</a>";
+				}
 				str+="<small class='fa-pull-right text-muted'>"+date+"</small></div>";
 				str+="<p>"+list[i].reply+"</p><hr></div></li>";
 			}
@@ -223,15 +241,24 @@ $(document).ready(function(){
 		str+="<div class='header'>";
 		str+="<strong class='primary-font'>"+writer+"</strong>";
 		str+="<a href='javascript:void(0)' onclick='updateReply("+rno+")' style='padding-left:15px;'>저장</a>";
-		str+="<a href='javascript:void(0)' onclick='showList(1)' style='padding-left:15px;'>취소</a>";
+		str+="<a href='javascript:void(0)' onclick='showList("+pageNum+")' style='padding-left:15px;'>취소</a>";
 		str+="<div class='form-group'><textarea id='updated' class='form-control'>"+content+"</textarea></div><hr></div></li>";
 		
 		reply.html(str);
 	}
 	
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token = $("meta[name='_csrf']").attr("content");
+	
 	function removeReply(rno){
+		var reply={
+			rno:rno,
+			replyer:replyer,
+			csrf_header:header,
+			csrf_token:token
+		};
 		replyService.remove(
-			rno
+			reply
 			,
 			function(result){
 				alert(result);
@@ -248,7 +275,10 @@ $(document).ready(function(){
 		var reply={
 			rno:rno,
 			reply:$("#updated").val(),
+			replyer:replyer,
 			bno:bnoValue,
+			csrf_header:header,
+			csrf_token:token
 		};
 		replyService.update(
 			reply

@@ -17,10 +17,10 @@ public class PasswordEncoderTests {
 	@Autowired
 	private PasswordEncoder pwEncoder;
 	
-	@Test
+	/*@Test
 	public void testEncode() {
 		String str="member";
 		String enStr=pwEncoder.encode(str);
 		log.info(enStr);
-	}
+	}*/
 }

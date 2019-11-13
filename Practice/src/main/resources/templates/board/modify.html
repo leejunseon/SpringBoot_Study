@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:replace="includes/header"></th:block>
 
 <div class="container-fluid">
@@ -34,10 +35,11 @@
 	       			<label>Update Date</label>
 	       			<input class="form-control" name='updateDate' th:value="${#dates.format(board.updateDate,'yyyy/MM/dd')}" readonly="readonly">
 	       		</div>
-	       		<button type="submit" class="btn btn-primary btn-icon-split">
+	       		<input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
+	       		<button type="submit" class="btn btn-primary btn-icon-split" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username eq board.writer}">
 	       			<span class="text">Modify</span>
 	       		</button>
-	       		<button type="submit" id='remove' class="btn btn-danger btn-icon-split">
+	       		<button type="submit" id='remove' class="btn btn-danger btn-icon-split" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username eq board.writer}">
 	       			<span class="text">Remove</span>
 	       		</button>
 	       		<button type="submit" id='list' class="btn btn-info btn-icon-split">
