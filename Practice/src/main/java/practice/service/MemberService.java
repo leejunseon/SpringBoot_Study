@@ -1,15 +1,10 @@
-package practice.mapper;
-
-import org.apache.ibatis.annotations.Mapper;
+package practice.service;
 
 import practice.domain.AuthVO;
 import practice.domain.MemberVO;
 
-@Mapper
-public interface MemberMapper {
+public interface MemberService {
 
-	public MemberVO read(String userid);
-	
 	public int insertMember(MemberVO member);
 	
 	public int insertAuth(AuthVO auth);

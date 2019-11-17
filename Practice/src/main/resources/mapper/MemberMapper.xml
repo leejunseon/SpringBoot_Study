@@ -28,5 +28,19 @@
 		WHERE
 			MEM.USERID=#{USERID}
 	</select>
+	
+	<insert id="insertMember">
+		INSERT INTO TBL_MEMBER
+			(USERID,USERPW,USERNAME,EMAIL)
+		VALUES
+			(#{userid},#{userpw},#{userName},#{email})
+	</insert>
+	
+	<insert id="insertAuth">
+		INSERT INTO TBL_MEMBER_AUTH
+			(USERID,AUTH)
+		VALUES
+			(#{userid},#{auth})
+	</insert>
 
 </mapper>
