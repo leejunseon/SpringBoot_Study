@@ -1,5 +1,6 @@
 package practice.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -12,17 +13,18 @@ import practice.mapper.MemberMapper;
 public class MemberServiceImpl implements MemberService{
 	
 	private MemberMapper mapper;
+	private PasswordEncoder pwencoder;
 
 	@Override
-	public int insertMember(MemberVO member) {
+	public int insertUser(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.insertMember(member);
-	}
-
-	@Override
-	public int insertAuth(AuthVO auth) {
-		// TODO Auto-generated method stub
-		return mapper.insertAuth(auth);
+		AuthVO auth=new AuthVO();
+		vo.setUserpw(pwencoder.encode(vo.getUserpw()));
+		int memberNum=mapper.insertMember(vo);
+		auth.setUserid(vo.getUserid());
+		auth.setAuth("user");
+		int authNum=mapper.insertAuth(auth);
+		return memberNum==1&&authNum==1?1:0;
 	}
 
 }
