@@ -18,13 +18,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int insertUser(MemberVO vo) {
 		// TODO Auto-generated method stub
-		AuthVO auth=new AuthVO();
-		vo.setUserpw(pwencoder.encode(vo.getUserpw()));
-		int memberNum=mapper.insertMember(vo);
-		auth.setUserid(vo.getUserid());
-		auth.setAuth("user");
-		int authNum=mapper.insertAuth(auth);
-		return memberNum==1&&authNum==1?1:0;
+		if(mapper.read(vo.getUserid())==null) {
+			AuthVO auth=new AuthVO();
+			vo.setUserpw(pwencoder.encode(vo.getUserpw()));
+			int memberNum=mapper.insertMember(vo);
+			auth.setUserid(vo.getUserid());
+			auth.setAuth("user");
+			int authNum=mapper.insertAuth(auth);
+			return memberNum==1&&authNum==1?1:0;
+		}else {
+			return -1;
+		}
 	}
 
 }

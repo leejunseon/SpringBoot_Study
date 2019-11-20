@@ -27,14 +27,18 @@ public class MemberMapperTests {
 		log.info(mapper.toString());
 	}*/
 	
-	/*@Test
+	@Test
 	public void testRead() {
-		MemberVO vo=mapper.read("ljs921026");
-		log.info(vo.toString());
-		for(AuthVO auth:vo.getAuthList()) {
-			log.info(auth.toString());
+		MemberVO vo=mapper.read("asdf");
+		if(vo!=null) {
+			log.info(vo.toString());
+			for(AuthVO auth:vo.getAuthList()) {
+				log.info(auth.toString());
+			}
+		}else {
+			log.info(null);
 		}
-	}*/
+	}
 	
 	/*@Test
 	public void testInsertMember() {

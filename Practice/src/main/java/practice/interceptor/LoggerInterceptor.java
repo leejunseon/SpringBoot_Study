@@ -13,7 +13,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object handler) throws Exception{
-		if(request.getRequestURI().contains("board")||request.getRequestURI().contains("replies")) {
+		if(request.getRequestURI().contains("board")||request.getRequestURI().contains("replies")||request.getRequestURI().contains("member")) {
 			log.debug("==============================================START==============================================");
 			log.debug(" Request URI \t: "+request.getRequestURI());
 		}
@@ -22,7 +22,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 	
 	@Override
 	public void postHandle(HttpServletRequest request,HttpServletResponse response,Object handler,ModelAndView modelAndView) throws Exception{
-		if(request.getRequestURI().contains("board")||request.getRequestURI().contains("replies")) {
+		if(request.getRequestURI().contains("board")||request.getRequestURI().contains("replies")||request.getRequestURI().contains("member")) {
 			log.debug("===============================================END===============================================");
 		}
 	}
