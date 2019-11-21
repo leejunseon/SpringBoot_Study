@@ -97,6 +97,13 @@
 <script type="text/javascript" th:inline="javascript">
 $(document).ready(function(){
 	/*<![CDATA[*/ 
+		var result = /*[[ ${result} ]]*/;
+	/*]]>*/
+	if(result!==null){
+		alert(result);	
+	}
+	
+	/*<![CDATA[*/ 
 		var error = /*[[ ${error} ]]*/;
 	/*]]>*/
 	if(error!==null){

@@ -96,6 +96,35 @@
   <!-- Custom scripts for all pages-->
   <script src="/js/sb-admin-2.min.js"></script>
 
+<script type="text/javascript" th:inline="javascript">
+$(document).ready(function(){
+	/*<![CDATA[*/ 
+		var result = /*[[ ${result} ]]*/; 
+	/*]]>*/
+	if(result!==null){
+		alert(result);	
+	}
+	
+	/*<![CDATA[*/ 
+		var error = /*[[ ${error} ]]*/; 
+	/*]]>*/
+	if(error!==null){
+		alert(error);	
+	}
+})
+
+$("#repeatpw").on("propertychange change keyup paste input", function() {
+    var repeat=$(this).val();
+    var pw=$("input[name=userpw]").val();
+    
+    if(pw!==repeat){
+    	$("#repeat").html("비밀번호가 일치하지 않습니다.");
+    }else{
+    	$("#repeat").html("");
+    }
+});
+</script>
+
 </body>
 
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/register")
-	public String register(@Valid MemberVO member,BindingResult result,String repeatpw,RedirectAttributes rttr) {
+	public String register(@Valid MemberVO member,BindingResult result,String repeatpw,RedirectAttributes rttr,Model model) {
 		String resultPage="";
 		
 		if(result.hasErrors()) {//validation error
@@ -44,17 +45,17 @@ public class MemberController {
 			resultPage= "/member/register";
 		}else if(!member.getUserpw().equals(repeatpw)) {//비밀번호 확인 error
 			log.info("Repeat error");
-			rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+			model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
 			resultPage= "/member/register";
 		}else {
 			int insert=service.insertUser(member);
 			if(insert==1) {//정상 입력
 				log.info("Register success");
-				rttr.addFlashAttribute("result",member.getUserid());
+				rttr.addFlashAttribute("result","회원가입이 완료되었습니다.");
 				resultPage= "redirect:/customLogin";
 			}else if(insert==-1) {//중복 아이디
 				log.info("ID reduplicate error");
-				rttr.addFlashAttribute("error",member.getUserid()+"는 중복되는 아이디입니다. 다른 아이디를 사용해주세요.");
+				model.addAttribute("error",member.getUserid()+"는 중복되는 아이디입니다. 다른 아이디를 사용해주세요.");
 				resultPage= "/member/register";
 			}
 		}
