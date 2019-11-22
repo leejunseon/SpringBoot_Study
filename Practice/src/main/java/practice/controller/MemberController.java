@@ -62,4 +62,9 @@ public class MemberController {
 		
 		return resultPage;
 	}
+	
+	@GetMapping("/findPassword")
+	public void findPassword() {
+		
+	}
 }
