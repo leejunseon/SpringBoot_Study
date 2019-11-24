@@ -1,6 +1,7 @@
 package practice.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import practice.domain.AuthVO;
 import practice.domain.MemberVO;
@@ -14,4 +15,7 @@ public interface MemberMapper {
 	
 	public int insertAuth(AuthVO auth);
 	
+	public int getEmail(@Param("id")String id,@Param("email")String email);
+
+	public int updatePassword(MemberVO member);
 }

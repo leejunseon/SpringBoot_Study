@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,7 @@ import practice.service.MemberService;
 public class MemberController {
 	
 	private MemberService service;
+	private BCryptPasswordEncoder pwencoder;
 	
 	@GetMapping("/register")
 	public void register(MemberVO member) {
@@ -36,24 +38,28 @@ public class MemberController {
 	public String register(@Valid MemberVO member,BindingResult result,String repeatpw,RedirectAttributes rttr,Model model) {
 		String resultPage="";
 		
-		if(result.hasErrors()) {//validation error
+		if(result.hasErrors()) {
+			//validation error
 			log.info("Validation Error");
 			List<ObjectError> list=result.getAllErrors();
 			for(ObjectError error:list) {
 				log.info(error.getDefaultMessage());
 			}
 			resultPage= "/member/register";
-		}else if(!member.getUserpw().equals(repeatpw)) {//비밀번호 확인 error
+		}else if(!member.getUserpw().equals(repeatpw)) {
+			//비밀번호 확인 error
 			log.info("Repeat error");
 			model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
 			resultPage= "/member/register";
 		}else {
 			int insert=service.insertUser(member);
-			if(insert==1) {//정상 입력
+			if(insert==1) {
+				//정상 입력
 				log.info("Register success");
 				rttr.addFlashAttribute("result","회원가입이 완료되었습니다.");
 				resultPage= "redirect:/customLogin";
-			}else if(insert==-1) {//중복 아이디
+			}else if(insert==-1) {
+				//중복 아이디
 				log.info("ID reduplicate error");
 				model.addAttribute("error",member.getUserid()+"는 중복되는 아이디입니다. 다른 아이디를 사용해주세요.");
 				resultPage= "/member/register";
@@ -66,5 +72,23 @@ public class MemberController {
 	@GetMapping("/findPassword")
 	public void findPassword() {
 		
+	}
+	
+	@GetMapping("/resetPassword")
+	public void resetPassword(String id,Model model) {
+		log.info("아이디 : "+id);
+		model.addAttribute("userid",id);
+	}
+	
+	@PostMapping("/resetPassword")
+	public String resetPassword(MemberVO member,RedirectAttributes rttr) {
+		String resultPage="";
+		member.setUserpw(pwencoder.encode(member.getUserpw()));
+		if(service.updatePassword(member)==1) {
+			rttr.addFlashAttribute("result","비밀번호가 업데이트되었습니다.");
+			resultPage="redirect:/customLogin";
+		}
+		
+		return resultPage;
 	}
 }

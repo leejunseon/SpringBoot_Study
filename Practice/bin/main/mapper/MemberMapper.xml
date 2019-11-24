@@ -42,5 +42,21 @@
 		VALUES
 			(#{userid},#{auth})
 	</insert>
+	
+	<select id="getEmail" resultType="Integer">
+		SELECT COUNT(*)
+		FROM TBL_MEMBER
+		WHERE USERID=#{id} AND EMAIL=#{email}
+	</select>
+	
+	<update id="updatePassword">
+		UPDATE
+			TBL_MEMBER
+		SET
+			USERPW=#{userpw},
+			UPDATEDATE=sysdate
+		WHERE
+			USERID=#{userid}
+	</update>
 
 </mapper>
