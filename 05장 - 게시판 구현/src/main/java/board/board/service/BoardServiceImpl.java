@@ -33,14 +33,14 @@ public class BoardServiceImpl implements BoardService{
 			String name;
 			while(iterator.hasNext()) {
 				name=iterator.next();
-				log.debug("file tag name : "+name);
+				log.debug("File tag name : "+name);
 				List<MultipartFile> list=multipartHttpServletRequest.getFiles(name);
 				for(MultipartFile multipartFile:list) {
-					log.debug("start file information");
+					log.debug("--------------------------------");
 					log.debug("file name : "+multipartFile.getOriginalFilename());
 					log.debug("file size : "+multipartFile.getSize());
 					log.debug("file content type : "+multipartFile.getContentType());
-					log.debug("end file information.\n");
+					log.debug("--------------------------------");
 				}
 			}
 		}
