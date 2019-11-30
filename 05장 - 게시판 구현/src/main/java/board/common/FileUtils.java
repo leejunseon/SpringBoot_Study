@@ -53,6 +53,7 @@ public class FileUtils {
 					}
 					
 					newFileName=Long.toString(System.nanoTime())+originalFileExtension;
+					
 					BoardFileDto boardFile=new BoardFileDto();
 					boardFile.setBoardIdx(boardIdx);
 					boardFile.setFileSize(multipartFile.getSize());
