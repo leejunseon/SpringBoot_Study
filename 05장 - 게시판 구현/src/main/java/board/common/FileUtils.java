@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import board.board.dto.BoardFileDto;
 
-@Component//빈으로 등록
+@Component//스프링의 빈으로 등록
 public class FileUtils {
 	
 	public List<BoardFileDto> parseFileInfo(int boardIdx,MultipartHttpServletRequest multipartHttpServletRequest) throws Exception{
@@ -27,7 +27,7 @@ public class FileUtils {
 		ZonedDateTime current=ZonedDateTime.now();
 		String path="images/"+current.format(format);
 		File file=new File(path);
-		if(file.exists()==false)
+		if(!file.exists())
 			file.mkdirs();
 		
 		Iterator<String> iterator=multipartHttpServletRequest.getFileNames();
@@ -61,8 +61,8 @@ public class FileUtils {
 					boardFile.setStoredFilePath(path+"/"+newFileName);
 					fileList.add(boardFile);
 					
-					file=new File(path+"/"+newFileName);
-					multipartFile.transferTo(file);
+					file=new File(path+"/"+newFileName);//path 지정
+					multipartFile.transferTo(file);//file로 저장
 				}
 			}
 		}

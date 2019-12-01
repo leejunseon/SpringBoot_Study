@@ -35,7 +35,8 @@ public class BoardServiceImpl implements BoardService{
 	public void insertBoard(BoardDto board,MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
 		boardMapper.insertBoard(board);
 		
-		if(ObjectUtils.isEmpty(multipartHttpServletRequest)==false) {
+		//·Î±×
+		if(!ObjectUtils.isEmpty(multipartHttpServletRequest)) {
 			Iterator<String> iterator=multipartHttpServletRequest.getFileNames();
 			String name;
 			while(iterator.hasNext()) {
@@ -53,13 +54,16 @@ public class BoardServiceImpl implements BoardService{
 		}
 		
 		List<BoardFileDto> list=fileUtils.parseFileInfo(board.getBoardIdx(), multipartHttpServletRequest);
-		if(CollectionUtils.isEmpty(list)==false)
+		if(!CollectionUtils.isEmpty(list))
 			boardMapper.insertBoardFileList(list);
 	}
 
 	@Override
 	public BoardDto selectBoardDetail(int boardIdx) throws Exception{
 		BoardDto board = boardMapper.selectBoardDetail(boardIdx);
+		List<BoardFileDto> fileList=boardMapper.selectBoardFileList(boardIdx);
+		board.setFileList(fileList);
+		
 		boardMapper.updateHitCount(boardIdx);
 		
 		return board;
@@ -73,6 +77,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void deleteBoard(int boardIdx) throws Exception {
 		boardMapper.deleteBoard(boardIdx);
+	}
+
+	@Override
+	public BoardFileDto selectBoardFileInformation(int idx, int boardIdx) throws Exception {
+		return boardMapper.selectBoardFileInformation(idx,boardIdx);
 	}
 }	
 
