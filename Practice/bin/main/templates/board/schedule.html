@@ -12,14 +12,30 @@
         <form role="form" action="/board/modify" method="post">
 	        <div class="card-body">
     			<div class="form-group" id='calendar'></div>
-    			<div class="form-group">
-    				<label>Start Date</label>
-        			<input class="form-control" type="text" readonly id="start-picker">
+    			<div class="form-row">
+	    			<div class="col-md-6">
+			        	<div class="form-group">
+			        		<label>Start Date</label>
+	                        <div class="input-group date" id="start_picker" data-target-input="nearest">
+			                    <input type="text" class="form-control datetimepicker-input" data-target="#start_picker" />
+			                    <div class="input-group-append" data-target="#start_picker" data-toggle="datetimepicker">
+			                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+			                    </div>
+			                </div>
+	                    </div>
+	        		</div>
+	        		<div class="col-md-6">
+		        		<div class="form-group">
+		    				<label>End Date</label>
+		        			<div class="input-group date" id="end_picker" data-target-input="nearest">
+			                    <input type="text" class="form-control datetimepicker-input" data-target="#end_picker"/>
+			                    <div class="input-group-append" data-target="#end_picker" data-toggle="datetimepicker">
+			                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+			                    </div>
+			                </div>
+		        		</div>
+	        		</div>
         		</div>
-        		<!-- <div class="form-group">
-    				<label>End Date</label>
-        			<input class="form-control" type="text" readonly id="end-picker">
-        		</div> -->
 	       		<input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
 	       		<button type="submit" class="btn btn-primary btn-icon-split" sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username eq board.writer}">
 	       			<span class="text">Add</span>
@@ -31,8 +47,25 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript" th:inline="javascript">
+
+<link href='/fullcalendar/core/main.css' rel='stylesheet' />
+<link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
+<link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
+
+<script src='/fullcalendar/core/main.js'></script>
+<script src='/fullcalendar/daygrid/main.js'></script>
+<script src='/fullcalendar/timegrid/main.js'></script>
+
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
+<script type="text/javascript" src="/js/schedule.js"></script>
+
+<script type="text/javascript">
 $(document).ready(function(){
+	
+	document.addEventListener('DOMContentLoaded', scheduleService.getSchedules());
 	
 	var formObj=$("form");
 	
@@ -46,32 +79,14 @@ $(document).ready(function(){
 		formObj.empty();
 		formObj.submit();
 	});
+	 
+	$('#start_picker').datetimepicker({
+        sideBySide: true
+    });
+    $('#end_picker').datetimepicker({
+        sideBySide: true
+    });
 });
-</script>
-
-<link href='/fullcalendar/core/main.css' rel='stylesheet' />
-<link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
-<link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
-
-<script src='/fullcalendar/core/main.js'></script>
-<script src='/fullcalendar/daygrid/main.js'></script>
-<script src='/fullcalendar/timegrid/main.js'></script>
-
-<link href='/datetimepicker/css/bootstrap-datetimepicker.css' rel='stylesheet' />
-<script src='/datetimepicker/js/bootstrap-datetimepicker.js'></script>
-
-<script type="text/javascript" src="/js/schedule.js"></script>
-<script type="text/javascript">
-$("#start_picker").datetimepicker({
-	format: 'yyyy-mm-dd hh:ii'
-});
-
-/* $("#end_picker").datetimepicker({
-	format: 'yyyy-mm-dd hh:ii'
-}); */
-    $(function () {
-    	document.addEventListener('DOMContentLoaded', scheduleService.getSchedules());
-    })
 </script>
 
 <th:block th:replace="includes/footer"></th:block>
