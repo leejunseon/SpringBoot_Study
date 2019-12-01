@@ -66,6 +66,12 @@ public class BoardController {
 
 	}
 	
+	@GetMapping("/schedule")
+	@PreAuthorize("isAuthenticated()")
+	public void addSchedule() throws Exception{
+
+	}
+	
 	@GetMapping("/register")
 	@PreAuthorize("isAuthenticated()")
 	public void register()throws Exception{
