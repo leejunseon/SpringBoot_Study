@@ -68,8 +68,8 @@ public class BoardController {
 	
 	@GetMapping("/schedule")
 	@PreAuthorize("isAuthenticated()")
-	public void addSchedule() throws Exception{
-
+	public void schedule(BoardVO board,Model model) throws Exception{
+		model.addAttribute("board",service.get(board.getBno()));
 	}
 	
 	@GetMapping("/register")
