@@ -1,5 +1,6 @@
 package practice.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;
@@ -12,5 +13,7 @@ public class ScheduleVO {
 	private String title;
 	private Date startTime;
 	private Date endTime;
+	private LocalDateTime start;
+	private LocalDateTime end;
 	
 }

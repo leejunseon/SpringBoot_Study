@@ -2,11 +2,13 @@ package practice.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -28,8 +30,9 @@ public class ScheduleController {
 		return "redirect:/board/get?bno="+schedule.getBno();
 	}
 	
-	@GetMapping("/get")
+	@GetMapping(value="/get", produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PreAuthorize("isAuthenticated()")
+	@ResponseBody
 	public List<ScheduleVO> get(String start,String end) throws Exception{
 		return service.get(start,end);
 	}

@@ -20,7 +20,7 @@ var scheduleService=(function(){
         	eventClick: function(info) {
         	    alert('Event: ' + info.event.title+"\nstart: "+info.event.start+"\nend: "+info.event.end+"\nuser: "+info.event.id);
         	},
-        	events: '/schedule/get'
+        	events:"/schedule/get"
         });
 
         calendar.render();

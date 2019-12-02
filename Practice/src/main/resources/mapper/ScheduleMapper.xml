@@ -12,7 +12,15 @@
 	</insert>
 	
 	<select id="get" resultType="practice.domain.ScheduleVO">
-	
+	<![CDATA[
+		SELECT *
+		FROM 
+			TBL_SCHEDULE
+		WHERE
+			#{start}<=START_TIME and START_TIME<=#{end}
+		OR
+			#{start}<=END_TIME and END_TIME<=#{end}
+	]]>	
 	</select>
 	
 </mapper>
