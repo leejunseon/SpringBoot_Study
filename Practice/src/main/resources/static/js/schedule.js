@@ -8,7 +8,6 @@ var scheduleService=(function(){
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
         	plugins: [ 'timeGrid' ],
-            timeZone: 'UTC',
             defaultView: 'timeGridWeek',
             header: {
               left: 'prev,next today',
@@ -18,7 +17,7 @@ var scheduleService=(function(){
             minTime:"06:00:00",
             maxTime:"22:00:00",
         	eventClick: function(info) {
-        	    alert('Event: ' + info.event.title+"\nstart: "+info.event.start+"\nend: "+info.event.end+"\nuser: "+info.event.id);
+        	    alert('Event: ' + info.event.title+"\nstart: "+info.event.start+"\nend: "+info.event.end+"\nwriter: "+info.event.extendedProps.writer);
         	},
         	events:"/schedule/get"
         });
