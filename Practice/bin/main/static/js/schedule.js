@@ -1,31 +1,59 @@
 console.log("Schedule js Module");
 
-
-var scheduleService=(function(){
+var scheduleService=(function(){	
 	
-	function getSchedules() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	plugins: [ 'timeGrid' ],
-            defaultView: 'timeGridWeek',
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'timeGridWeek,timeGridDay'
+	function remove(reply,callback,error){
+		console.log("scheduleService.remove");
+		console.log(reply);
+		
+		$.ajax({
+			type:'delete',
+			url:'/replies/'+reply.rno,
+			data:JSON.stringify(reply),
+			contentType:"application/json; charset=utf-8",
+			beforeSend: function(xhr){   
+                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
             },
-            minTime:"06:00:00",
-            maxTime:"22:00:00",
-        	eventClick: function(info) {
-        	    alert('Event: ' + info.event.title+"\nstart: "+info.event.start+"\nend: "+info.event.end+"\nwriter: "+info.event.extendedProps.writer);
-        	},
-        	events:"/schedule/get"
-        });
-
-        calendar.render();
+			success:function(deleteResult,status,xhr){
+				if(callback){
+					callback(deleteResult);
+				}
+			},
+			error:function(xhr,status,er){
+				if(error){
+					error(status);
+				}
+			}
+		});
+	}
+	
+	function update(reply,callback,error){
+		console.log("scheduleService.update");
+		console.log(reply);
+		
+		$.ajax({
+			type:'put',
+			url:'/replies/'+reply.rno,
+			data:JSON.stringify(reply),
+			contentType:"application/json; charset=utf-8",
+			beforeSend: function(xhr){   
+                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
+            },
+			success:function(result,status,xhr){
+				if(callback){
+					callback(result);
+				}
+			},
+			error:function(xhr,status,er){
+				if(error){
+					error(status);
+				}
+			}
+		});
 	}
 	
 	return {
-		getSchedules:getSchedules
+		remove:remove,
+		update:update
 	};	
 })();

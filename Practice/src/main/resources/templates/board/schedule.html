@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	  <head>
+</head>
 <th:block th:replace="includes/header"></th:block>
 
 <div class="container-fluid">
@@ -65,16 +67,10 @@
 <script src='/fullcalendar/daygrid/main.js'></script>
 <script src='/fullcalendar/timegrid/main.js'></script>
 
-<script src="https://momentjs.com/downloads/moment.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
-
 <script type="text/javascript" src="/js/schedule.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	document.addEventListener('DOMContentLoaded', scheduleService.getSchedules());
 	
 	var formObj=$("form");
 	
@@ -92,6 +88,7 @@ $(document).ready(function(){
         sideBySide: true,
         stepping:30
     });
+       
 });
 </script>
 

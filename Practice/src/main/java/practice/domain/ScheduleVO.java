@@ -9,6 +9,7 @@ import lombok.Data;
 public class ScheduleVO {
 
 	private int bno;
+	private int sno;
 	private String writer;
 	private String title;
 	private Date startTime;

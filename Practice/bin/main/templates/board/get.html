@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-</head>
 <th:block th:replace="includes/header"></th:block>
 
 <div class="container-fluid">
@@ -306,19 +302,5 @@ $(document).ready(function(){
 	}
 	  
 </script>
-
-<link href='/fullcalendar/core/main.css' rel='stylesheet' />
-<link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
-<link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
-
-<script src='/fullcalendar/core/main.js'></script>
-<script src='/fullcalendar/daygrid/main.js'></script>
-<script src='/fullcalendar/timegrid/main.js'></script>
-
-<script type="text/javascript" src="/js/schedule.js"></script>
-<script>
-	document.addEventListener('DOMContentLoaded', scheduleService.getSchedules());
-</script>
-
 <th:block th:replace="includes/footer"></th:block>
 </html>

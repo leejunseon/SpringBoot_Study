@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-</head>
 <th:block th:replace="includes/header"></th:block>
 	
         <!-- Begin Page Content -->
@@ -29,20 +25,20 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>#번호</th>
-                      <th>제목</th>
-                      <th>작성자</th>
-                      <th>작성일</th>
-                      <th>수정일</th>
+                      <th>#踰덊샇</th>
+                      <th>�젣紐�</th>
+                      <th>�옉�꽦�옄</th>
+                      <th>�옉�꽦�씪</th>
+                      <th>�닔�젙�씪</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>#번호</th>
-                      <th>제목</th>
-                      <th>작성자</th>
-                      <th>작성일</th>
-                      <th>수정일</th>
+                      <th>#踰덊샇</th>
+                      <th>�젣紐�</th>
+                      <th>�옉�꽦�옄</th>
+                      <th>�옉�꽦�씪</th>
+                      <th>�닔�젙�씪</th>
                     </tr>
                   </tfoot>
                 </table>
@@ -58,7 +54,7 @@
   			<div class="modal-dialog" role="document">
   				<div class="modal-content">
      				<div class="modal-header">
-        				<h5 class="modal-title">등록 완료</h5>
+        				<h5 class="modal-title">�벑濡� �셿猷�</h5>
         				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
          					<span aria-hidden="true">&times;</span>
         				</button>
@@ -85,25 +81,25 @@
 		
 		history.replaceState({},null,null);
 		
-		//등록 모달 창
+		//�벑濡� 紐⑤떖 李�
 		function checkModal(result){
 			if(result===null||history.state)
 				return
 			if(parseInt(result)>0){
-				$(".modal-body").html("게시글 "+parseInt(result)+" 번이 등록되었습니다.");
+				$(".modal-body").html("寃뚯떆湲� "+parseInt(result)+" 踰덉씠 �벑濡앸릺�뿀�뒿�땲�떎.");
 			}
 			
 			$("#myModal").modal("show");
 		}
 		
-		//Register button 이벤트
+		//Register button �씠踰ㅽ듃
 		$("#regBtn").on("click",function(){
 			self.location="/board/register";
 		});
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
-		//dataTables 서버사이드 구현
+		//dataTables �꽌踰꾩궗�씠�뱶 援ы쁽
 		$('#dataTable').dataTable( {	
 			"stateSave": true,
 			"serverSide":true,
@@ -114,7 +110,7 @@
 				"url":"/board/tableSetting",
 				"type":"POST",
 				"beforeSend" : function(xhr){   
-			 		//데이터를 전송하기 전에 헤더에 csrf값을 설정한다.
+			 		//�뜲�씠�꽣瑜� �쟾�넚�븯湲� �쟾�뿉 �뿤�뜑�뿉 csrf媛믪쓣 �꽕�젙�븳�떎.
 					 xhr.setRequestHeader(header, token);
                 },
 				"dataSrc":function(res){
@@ -122,7 +118,7 @@
 					return data;
 				}
 			},
-			//JSON 데이터를 데이터 그리드에 표시
+			//JSON �뜲�씠�꽣瑜� �뜲�씠�꽣 洹몃━�뱶�뿉 �몴�떆
 			"columns":[
 				{"data":"bno"},
 				{"data": "title",
