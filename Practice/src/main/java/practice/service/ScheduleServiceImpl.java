@@ -37,4 +37,16 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return result;
 	}
 
+	@Override
+	public int update(ScheduleVO schedule) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.update(schedule);
+	}
+
+	@Override
+	public int delete(int sno) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.remove(sno);
+	}
+
 }

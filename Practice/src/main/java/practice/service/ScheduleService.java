@@ -10,4 +10,8 @@ public interface ScheduleService {
 
 	List<ScheduleVO> get(String start, String end) throws Exception;
 
+	int update(ScheduleVO schedule) throws Exception;
+
+	int delete(int sno) throws Exception;
+
 }

@@ -2,17 +2,16 @@ console.log("Schedule js Module");
 
 var scheduleService=(function(){	
 	
-	function remove(reply,callback,error){
+	function remove(schedule,callback,error){
 		console.log("scheduleService.remove");
-		console.log(reply);
+		console.log(schedule);
 		
 		$.ajax({
 			type:'delete',
-			url:'/replies/'+reply.rno,
-			data:JSON.stringify(reply),
-			contentType:"application/json; charset=utf-8",
+			url:'/schedule/remove',
+			data:schedule,
 			beforeSend: function(xhr){   
-                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
+                xhr.setRequestHeader(schedule.csrf_header, schedule.csrf_token);
             },
 			success:function(deleteResult,status,xhr){
 				if(callback){
@@ -27,17 +26,16 @@ var scheduleService=(function(){
 		});
 	}
 	
-	function update(reply,callback,error){
+	function update(schedule,callback,error){
 		console.log("scheduleService.update");
-		console.log(reply);
+		console.log(schedule);
 		
 		$.ajax({
 			type:'put',
-			url:'/replies/'+reply.rno,
-			data:JSON.stringify(reply),
-			contentType:"application/json; charset=utf-8",
-			beforeSend: function(xhr){   
-                xhr.setRequestHeader(reply.csrf_header, reply.csrf_token);
+			url:'/schedule/update',
+			data:schedule,
+			beforeSend: function(xhr){
+                xhr.setRequestHeader(schedule.csrf_header, schedule.csrf_token);
             },
 			success:function(result,status,xhr){
 				if(callback){

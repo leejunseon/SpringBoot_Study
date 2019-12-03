@@ -23,4 +23,17 @@
 	]]>	
 	</select>
 	
+	<update id="update">
+		UPDATE TBL_SCHEDULE
+		SET
+			TITLE=#{title},
+			START_TIME=#{startTime},
+			END_TIME=#{endTime}
+		WHERE SNO=#{sno}
+	</update>
+	
+	<delete id="remove">
+		DELETE FROM TBL_SCHEDULE WHERE SNO=#{sno}
+	</delete>
+	
 </mapper>
