@@ -30,7 +30,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		log.warn("Role Names : "+roleNames);
 		
-		if(roleNames.contains("user")) {
+		if(roleNames.contains("user")||roleNames.contains("admin")) {
 			response.sendRedirect("/board/list");
 		}
 	}
