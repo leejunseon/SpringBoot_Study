@@ -191,6 +191,7 @@
                 </form>
               </div>
             </li>
+           
 				
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1" sec:authorize="isAuthenticated()">
@@ -307,6 +308,12 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              	<div class="dropdown-item" sec:authorize="hasRole('ROLE_USER')">
+				  User
+				</div>
+				 <div class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')">
+				  Admin
+				</div>
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
