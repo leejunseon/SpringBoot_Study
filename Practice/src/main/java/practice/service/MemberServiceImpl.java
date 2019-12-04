@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService{
 			vo.setUserpw(pwencoder.encode(vo.getUserpw()));
 			int memberNum=mapper.insertMember(vo);
 			auth.setUserid(vo.getUserid());
-			auth.setAuth("user");
+			auth.setAuth("ROLE_USER");
 			int authNum=mapper.insertAuth(auth);
 			return memberNum==1&&authNum==1?1:0;
 		}else {
